@@ -31,7 +31,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.gradle:library-xbundle:1.0.1'
+    implementation 'org.gradle:library-xbundle:1.0.0'
 }
 
 
