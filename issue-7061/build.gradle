@@ -1,0 +1,36 @@
+plugins {
+    id 'groovy'
+    id 'java-gradle-plugin'
+}
+
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+version '1.0-SNAPSHOT'
+
+
+gradlePlugin {
+    plugins {
+        demoPlugin {
+            id = 'org.gradle.issue-7061'
+            implementationClass = 'org.gradle.issue.IssuePlugin'
+        }
+    }
+}
+
+dependencies {
+    implementation localGroovy()
+    implementation 'org.jetbrains:annotations:13.0'
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation("org.spockframework:spock-core:1.1-groovy-2.4") {
+        exclude group: "org.codehaus.groovy", module: "groovy-all"
+    }
+}
+
+test {
+    testLogging {
+        exceptionFormat "full"
+    }
+}

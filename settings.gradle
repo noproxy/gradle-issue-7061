@@ -1,0 +1,4 @@
+rootProject.name = 'org.gradle'
+include 'issue-7061'
+include 'library-xbundle'
+
