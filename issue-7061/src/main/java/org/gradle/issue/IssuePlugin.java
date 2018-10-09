@@ -22,15 +22,17 @@ public class IssuePlugin implements Plugin<Project> {
         final DependencyHandler dependencies = project.getDependencies();
 
 
-        // mark all xbundle as "buildType=default"
         final ObjectFactory objects = project.getObjects();
         final BuildTypeAttr defaultBuildType = objects.named(BuildTypeAttr.class, "default");
+
+        // mark all artifacts as "buildType=default" whose artifactType='xbundle'
         dependencies.getArtifactTypes().register("xbundle", artifactTypeDefinition ->
                 artifactTypeDefinition.getAttributes().attribute(BuildTypeAttr.ATTRIBUTE, defaultBuildType));
 
 
-        // xbundle, default -> aar, debug
-        // xbundle, default -> aar, release
+        // register:
+        // 1. xbundle, default -> aar, debug
+        // 2. xbundle, default -> aar, release
         Arrays.stream(buildTypes).forEach(buildType -> dependencies.registerTransform(reg -> {
             reg.getFrom().attribute(ARTIFACT_FORMAT, "xbundle");
             reg.getTo().attribute(ARTIFACT_FORMAT, "aar");
@@ -41,7 +43,7 @@ public class IssuePlugin implements Plugin<Project> {
             reg.artifactTransform(DummyTransform.class);
         }));
 
-        // aar -> classes
+        // register: aar -> classes
         dependencies.registerTransform(reg -> {
             reg.getFrom().attribute(ARTIFACT_FORMAT, "aar");
             reg.getTo().attribute(ARTIFACT_FORMAT, "classes");
@@ -56,7 +58,8 @@ public class IssuePlugin implements Plugin<Project> {
             test.setCanBeResolved(true);
             test.extendsFrom(implementation);
 
-            // will fail
+            // retrieve artifacts that is 'classes' and 'release'
+            // This line will fail!
             final ArtifactCollection artifacts = test.getIncoming().artifactView(config -> {
                 config.attributes(container -> container.attribute(ARTIFACT_FORMAT, "classes"));
                 config.attributes(container -> container.attribute(BuildTypeAttr.ATTRIBUTE, objects.named(BuildTypeAttr.class, "release")));

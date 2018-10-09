@@ -7,6 +7,9 @@ import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Dummy transform just return the origin file.
+ */
 @SuppressWarnings("UnstableApiUsage")
 public class DummyTransform extends ArtifactTransform {
     @NotNull

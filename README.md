@@ -4,14 +4,14 @@ This is a sample project to reproduce issue-7061 of the gradle.(https://github.c
 
 ## Project Structure
 
-1. module 'library-xbundle' will produce a library with 'xbundle' format.
-2. module 'issue-7061' will assemble a plugin that register some artifact transforms to produce issue.
-3. the test in module 'issue-7061' will test the plugin, and test will fail to demonstrate the issue.
+1. Module 'library-xbundle' will produce a library with 'xbundle' format.
+2. Module 'issue-7061' will assemble a plugin that register some artifact transforms to produce issue.
+3. The test in module 'issue-7061' will test the plugin, and test will fail to demonstrate the issue.
  
 
 ## Usage
 
-Run this to running test. Test will fail.
+Run this cmd to test. Tests will fail.
 
 ```bash
 ./gradlew install test
